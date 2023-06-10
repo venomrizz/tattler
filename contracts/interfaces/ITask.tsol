@@ -1,0 +1,46 @@
+// SPDX-License-Identifier: UNLICENSED
+pragma ever-solidity >= 0.62.0;
+
+interface ITask {
+    struct Job {
+        bool enabled;
+        address target;
+        bool bounce;
+        uint128 attach_amount;
+        string description;
+        uint32 frequency;
+        uint32 last_call;
+        uint32 call_counter;
+    }
+
+    struct JobUpdate {
+        uint8 job_id;
+        bool toggle;
+        address target;
+        string description;
+        uint128 attach_amount;
+        uint32 frequency;
+    }
+
+    function addJobs(Job[] jobs) external;
+    function removeJobs(uint8[] job_ids) external;
+    function updateJobs(JobUpdate[] job_updates) external;
+    function getJobs() external view responsible returns(mapping(uint8 => Job));
+
+    function execute() external;
+    function executeByOwner() external;
+
+    function setOperators(uint[] _operators) external;
+
+    function drain(uint128 amount) external;
+
+    event OperatorsUpdated(uint[] operators);
+    event JobUpdateDescription(uint8 job_id, string description);
+    event JobUpdateEnabled(uint8 job_id, bool enabled);
+    event JobUpdateFrequency(uint8 job_id, uint32 frequency);
+    event JobUpdateTarget(uint8 job_id, address target);
+    event JobUpdateAttachAmount(uint8 job_id, uint128 attach_amount);
+
+    event JobAdded(uint8 job_id, Job job);
+    event JobRemoved(uint8 job_id);
+}

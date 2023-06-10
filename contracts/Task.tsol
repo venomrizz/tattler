@@ -1,0 +1,187 @@
+// SPDX-License-Identifier: UNLICENSED
+pragma ever-solidity >= 0.62.0;
+pragma AbiHeader pubkey;
+
+import "./interfaces/ITask.tsol";
+import "./interfaces/ITattlerTarget.tsol";
+import "./libraries/Constants.tsol";
+
+import "@broxus/contracts/contracts/access/InternalOwner.tsol";
+
+
+contract Task is ITask, InternalOwner {
+    address public static fabric;
+    uint32 public static id;
+
+    uint32 last_call;
+    uint8 job_counter;
+    mapping (uint8 /*job_id*/ => Job /*job*/) jobs;
+    mapping (uint256 /*pub key*/ => bool /*exists*/) operators;
+
+    modifier onlyFabric() {
+        require(msg.sender == fabric);
+
+        _;
+    }
+
+    modifier onlyOperator() {
+        require(operators.exists(msg.pubkey()));
+
+        _;
+    }
+
+    constructor(
+        address _owner,
+        uint[] _operators
+    ) public {
+        setOwnership(_owner);
+
+        _set_operators(_operators);
+    }
+
+    // @notice Drain money
+    // @dev Can be called only by `owner`
+    // @param amount Amount of tokens to drain
+    function drain(uint128 amount) external override onlyOwner {
+        owner.transfer({
+            value: amount,
+            flag: 0,
+            bounce: false
+        });
+    }
+
+    // @notice Execute jobs with external-in message
+    // @dev Can be called only by public keys from `operators`
+    // @dev Can't be called more than once per `MIN_FREQUENCY_IN_SECONDS`
+    function execute() external override onlyOperator {
+        require(last_call + Constants.MIN_FREQUENCY_IN_SECONDS < now);
+
+        tvm.accept();
+
+        _execute();
+    }
+
+    // @notice Execute jobs with internal message
+    // @dev Can be called only by `owner`
+    // @dev Can't be called more than once per `MIN_FREQUENCY_IN_SECONDS`
+    function executeByOwner() external override onlyOwner {
+        _execute();
+    }
+
+    function shouldExecute() external view returns (bool) {
+        for ((, Job job): jobs) {
+            if (job.enabled == true && job.last_call + job.frequency < now) return true;
+        }
+
+        return false;
+    }
+
+    function _execute() internal {
+        last_call = now;
+
+        for ((uint8 job_id, Job job): jobs) {
+            if (job.enabled == false || job.last_call + job.frequency > now) continue;
+
+            ITattlerTarget(job.target).onTattlerCall{
+                value: job.attach_amount,
+                flag: 0,
+                bounce: job.bounce
+            }();
+
+            job.last_call = now;
+            job.call_counter++;
+
+            jobs[job_id] = job;
+        }
+    }
+
+    function addJobs(Job[] new_jobs) external override onlyOwner {
+        require(jobs.keys().length + new_jobs.length < Constants.MAX_JOBS_PER_TASK);
+
+        for (Job job: new_jobs) {
+            uint8 job_id = job_counter;
+            job_counter++;
+
+            job.call_counter = 0;
+            job.last_call = 0;
+
+            jobs[job_id] = job;
+
+            emit JobAdded(job_id, job);
+        }
+    }
+
+    function removeJobs(uint8[] job_ids) external override onlyOwner {
+        for (uint8 job_id: job_ids) {
+            if (jobs.exists(job_id)) {
+                delete jobs[job_id];
+
+                emit JobRemoved(job_id);
+            }
+        }
+    }
+
+    function updateJobs(
+        JobUpdate[] job_updates
+    ) external override onlyOwner {
+        for (JobUpdate job_update: job_updates) {
+            _update_job(job_update);
+        }
+    }
+
+    function _update_job(JobUpdate job_update) internal {
+        uint8 job_id = job_update.job_id;
+
+        Job job = jobs[job_id];
+
+        if (job_update.attach_amount != 0) {
+            job.attach_amount = job_update.attach_amount;
+
+            emit JobUpdateAttachAmount(job_id, job.attach_amount);
+        }
+
+        if (job_update.target != address.makeAddrStd(0, 0)) {
+            job.target = job_update.target;
+
+            emit JobUpdateTarget(job_id, job.target);
+        }
+
+        if (job_update.frequency != 0) {
+            job.frequency = job_update.frequency;
+
+            emit JobUpdateFrequency(job_id, job.frequency);
+        }
+
+        if (job_update.toggle != false) {
+            job.enabled = !job.enabled;
+
+            emit JobUpdateEnabled(job_id, job.enabled);
+        }
+
+        if (job_update.description != "") {
+            job.description = job_update.description;
+
+            emit JobUpdateDescription(job_id, job.description);
+        }
+
+        jobs[job_id] = job;
+    }
+
+    function getJobs() external responsible view override returns(mapping(uint8 => Job)) {
+        return {value: 0, bounce: false, flag: 64} jobs;
+    }
+
+    function setOperators(uint[] _operators) external override onlyFabric {
+        _set_operators(_operators);
+
+        emit OperatorsUpdated(_operators);
+    }
+
+    function _set_operators(uint[] _operators) internal {
+        operators = emptyMap;
+
+        for (uint operator: _operators) {
+            operators[operator] = true;
+        }
+    }
+}

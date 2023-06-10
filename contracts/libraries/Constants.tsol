@@ -1,0 +1,10 @@
+// SPDX-License-Identifier: UNLICENSED
+pragma ever-solidity >= 0.62.0;
+
+
+library Constants {
+    uint32 constant MIN_FREQUENCY_IN_SECONDS = 60;
+    uint32 constant MAX_JOBS_PER_TASK = 20;
+
+    uint128 constant DEPLOY_TASK_INDEX_VALUE = 0.1 ever;
+}

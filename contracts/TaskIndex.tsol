@@ -1,0 +1,15 @@
+// SPDX-License-Identifier: UNLICENSED
+pragma ever-solidity >= 0.62.0;
+
+contract TaskIndex {
+    address public static fabric;
+    address public static owner;
+
+    uint32 public _id;
+
+    constructor(uint32 id) public {
+        require(msg.sender == fabric);
+
+        id = _id;
+    }
+}

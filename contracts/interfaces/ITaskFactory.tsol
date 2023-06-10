@@ -1,0 +1,17 @@
+// SPDX-License-Identifier: UNLICENSED
+pragma ever-solidity >= 0.62.0;
+
+import "./ITask.tsol";
+
+interface ITaskFactory {
+    function drain() external;
+
+    function setOperators(uint[] _operators) external;
+
+    function deployTask(address owner) external;
+
+    function deriveTask(uint32 task_id) external returns (address);
+    function deriveTaskIndex(address owner) external returns (address);
+
+    event TaskDeployed(uint32 task_id, address owner, address index, address task);
+}

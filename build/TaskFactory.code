@@ -1,0 +1,1053 @@
+.version sol 0.62.0
+
+.macro constructor
+DROP
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7_with_init_storage$
+}
+GETGLOB 6
+THROWIF 51
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDREF
+LDREF
+LDU 32
+LDDICT
+ROTREV
+PAIR
+SWAP
+ENDS
+.loc ../contracts/TaskFactory.tsol, 25
+ACCEPT
+.loc ../contracts/TaskFactory.tsol, 27
+ROLL 3
+CALLREF {
+	CALL $setOwnership_a7016023_internal_macro$
+}
+.loc ../contracts/TaskFactory.tsol, 29
+ROT
+SETGLOB 13
+.loc ../contracts/TaskFactory.tsol, 30
+SWAP
+SETGLOB 14
+.loc ../contracts/TaskFactory.tsol, 31
+SETGLOB 15
+.loc ../contracts/TaskFactory.tsol, 0
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro deployTask
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/TaskFactory.tsol, 34
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+ENDS
+.loc ../contracts/TaskFactory.tsol, 0
+CALLREF {
+	CALL $deployTask_c1238fe1_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro deployTask_c1238fe1_internal_macro
+.loc ../contracts/TaskFactory.tsol, 35
+GETGLOB 12
+DUP
+.loc ../contracts/TaskFactory.tsol, 36
+INC
+UFITS 32
+SETGLOB 12
+.loc ../contracts/TaskFactory.tsol, 38
+DUP
+CALLREF {
+	CALL $_derive_task_34196b07_internal_macro$
+}
+.loc ../contracts/TaskFactory.tsol, 39
+PUSH S2
+CALLREF {
+	CALL $_derive_task_index_f66bb5ef_internal_macro$
+}
+.loc ../contracts/TaskFactory.tsol, 41
+OVER2
+PUSHSLICE xc0000000000000000000000001
+NEWC
+STSLICE
+ROLLREV 4
+NEWC
+STSLICECONST x64c0fc2b
+STU 32
+STSLICE
+ROTREV
+NEWC
+STSLICE
+SWAP
+NEWC
+STSLICE
+STBREFR
+STBREFR
+STBREFR
+ENDC
+PUSHINT 0
+SENDRAWMSG
+.loc ../contracts/TaskFactory.tsol, 43
+PUSH2 S0, S1
+CALLREF {
+	CALL $_deploy_task_index_61a18101_internal_macro$
+}
+.loc ../contracts/TaskFactory.tsol, 44
+SWAP
+CALLREF {
+	CALL $_deploy_task_2abeacb4_internal_macro$
+}
+.loc ../contracts/TaskFactory.tsol, 0
+
+.globl	_deploy_task_2abeacb4_internal
+.type	_deploy_task_2abeacb4_internal, @function
+CALL $_deploy_task_2abeacb4_internal_macro$
+
+.macro _deploy_task_2abeacb4_internal_macro
+.loc ../contracts/TaskFactory.tsol, 48
+GETGLOB 15
+SWAP
+PUSHINT 0
+NEWC
+STU 256
+PUSHINT 0
+NEWDICT
+PUSHINT 64
+DICTUSETB
+MYADDR
+PUSHINT 1
+ROT
+PUSHINT 64
+DICTUSET
+ROLL 3
+NEWC
+STU 32
+PUSHINT 2
+ROT
+PUSHINT 64
+DICTUSETB
+NEWC
+STDICT
+ENDC
+GETGLOB 13
+NEWC
+STSLICECONST x2_
+STOPTREF
+STOPTREF
+STZERO
+ENDC
+DUP
+HASHCU
+NEWC
+STSLICECONST x801_
+STU 256
+NEWC
+STSLICECONST x62_
+STB
+PUSHINT 3
+STUR 111
+OVER
+CALLREF {
+	CTOS
+	LDI 1
+	SWAP
+	PUSHCONT {
+		LDI 5
+		NIP
+	}
+	IF
+	LDI 1
+	SWAP
+	PUSHCONT {
+		LDI 2
+		NIP
+	}
+	IF
+	LDOPTREF
+	LDOPTREF
+	LDDICT
+	ENDS
+	BLKDROP 3
+}
+STREF
+STSLICECONST 1
+ROTREV
+NEWC
+STSLICECONST x2f353de9
+STSLICE
+SWAP
+UNPAIR
+XCHG S2
+STU 32
+STDICT
+STBREFR
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/TaskFactory.tsol, 0
+
+.globl	_deploy_task_index_61a18101_internal
+.type	_deploy_task_index_61a18101_internal, @function
+CALL $_deploy_task_index_61a18101_internal_macro$
+
+.macro _deploy_task_index_61a18101_internal_macro
+.loc ../contracts/TaskFactory.tsol, 61
+SWAP
+PUSHINT 0
+NEWC
+STU 256
+PUSHINT 0
+NEWDICT
+PUSHINT 64
+DICTUSETB
+MYADDR
+PUSHINT 1
+ROT
+PUSHINT 64
+DICTUSET
+ROT
+PUSHINT 2
+ROT
+PUSHINT 64
+DICTUSET
+NEWC
+STDICT
+ENDC
+GETGLOB 14
+NEWC
+STSLICECONST x2_
+STOPTREF
+STOPTREF
+STZERO
+ENDC
+DUP
+HASHCU
+NEWC
+STSLICECONST x801_
+STU 256
+NEWC
+STSLICECONST x62_
+STB
+PUSHINT 2803819077499249229031122585109857988247555
+STUR 143
+OVER
+CALLREF {
+	CTOS
+	LDI 1
+	SWAP
+	PUSHCONT {
+		LDI 5
+		NIP
+	}
+	IF
+	LDI 1
+	SWAP
+	PUSHCONT {
+		LDI 2
+		NIP
+	}
+	IF
+	LDOPTREF
+	LDOPTREF
+	LDDICT
+	ENDS
+	BLKDROP 3
+}
+STREF
+STSLICECONST x1126d6664_
+STU 32
+ENDC
+PUSHINT 0
+SENDRAWMSG
+.loc ../contracts/TaskFactory.tsol, 0
+
+.globl	_derive_task_34196b07_internal
+.type	_derive_task_34196b07_internal, @function
+CALL $_derive_task_34196b07_internal_macro$
+
+.macro _derive_task_34196b07_internal_macro
+.loc ../contracts/TaskFactory.tsol, 74
+PUSHINT 0
+NEWC
+STU 256
+PUSHINT 0
+NEWDICT
+PUSHINT 64
+DICTUSETB
+MYADDR
+PUSHINT 1
+ROT
+PUSHINT 64
+DICTUSET
+SWAP
+NEWC
+STU 32
+PUSHINT 2
+ROT
+PUSHINT 64
+DICTUSETB
+NEWC
+STDICT
+ENDC
+GETGLOB 13
+NEWC
+STSLICECONST x2_
+STOPTREF
+STOPTREF
+STZERO
+ENDC
+.loc ../contracts/TaskFactory.tsol, 84
+HASHCU
+NEWC
+STSLICECONST x801_
+STU 256
+ENDC
+CTOS
+.loc ../contracts/TaskFactory.tsol, 0
+
+.globl	_derive_task_index_f66bb5ef_internal
+.type	_derive_task_index_f66bb5ef_internal, @function
+CALL $_derive_task_index_f66bb5ef_internal_macro$
+
+.macro _derive_task_index_f66bb5ef_internal_macro
+.loc ../contracts/TaskFactory.tsol, 88
+PUSHINT 0
+NEWC
+STU 256
+PUSHINT 0
+NEWDICT
+PUSHINT 64
+DICTUSETB
+MYADDR
+PUSHINT 1
+ROT
+PUSHINT 64
+DICTUSET
+SWAP
+PUSHINT 2
+ROT
+PUSHINT 64
+DICTUSET
+NEWC
+STDICT
+ENDC
+GETGLOB 14
+NEWC
+STSLICECONST x2_
+STOPTREF
+STOPTREF
+STZERO
+ENDC
+.loc ../contracts/TaskFactory.tsol, 98
+HASHCU
+NEWC
+STSLICECONST x801_
+STU 256
+ENDC
+CTOS
+.loc ../contracts/TaskFactory.tsol, 0
+
+.macro deriveTask
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/TaskFactory.tsol, 101
+LDU 32
+ENDS
+.loc ../contracts/TaskFactory.tsol, 0
+CALLREF {
+	CALL $deriveTask_389623ed_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 1
+	STUR 98
+	SWAP
+	NEWC
+	STSLICECONST xdc607c4c
+	STSLICE
+	STBREFR
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+PUSHCONT {
+	DROP
+}
+IFELSE
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro deriveTask_389623ed_internal_macro
+.loc ../contracts/TaskFactory.tsol, 102
+CALLREF {
+	CALL $_derive_task_34196b07_internal_macro$
+}
+.loc ../contracts/TaskFactory.tsol, 0
+
+.macro deriveTaskIndex
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/TaskFactory.tsol, 105
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+ENDS
+.loc ../contracts/TaskFactory.tsol, 0
+CALLREF {
+	CALL $deriveTaskIndex_3cb4905d_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 1
+	STUR 98
+	SWAP
+	NEWC
+	STSLICECONST xb768f6d4
+	STSLICE
+	STBREFR
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+PUSHCONT {
+	DROP
+}
+IFELSE
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro deriveTaskIndex_3cb4905d_internal_macro
+.loc ../contracts/TaskFactory.tsol, 106
+CALLREF {
+	CALL $_derive_task_index_f66bb5ef_internal_macro$
+}
+.loc ../contracts/TaskFactory.tsol, 0
+
+.macro drain
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/TaskFactory.tsol, 109
+ENDS
+.loc ../contracts/TaskFactory.tsol, 0
+CALLREF {
+	CALL $drain_9890220b_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro drain_9890220b_internal_macro
+.loc ../node_modules/@broxus/contracts/contracts/access/InternalOwner.tsol, 15
+GETGLOB 9
+GETGLOB 11
+SDEQ
+DUP
+PUSHCONT {
+	DROP
+	GETGLOB 9
+	PARSEMSGADDR
+	INDEX 3
+	PLDU 256
+	NEQINT 0
+}
+IF
+THROWIFNOT 1101
+.loc ../contracts/TaskFactory.tsol, 0
+
+.macro setOperators
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/TaskFactory.tsol, 113
+LDU 32
+LDDICT
+ROTREV
+PAIR
+SWAP
+ENDS
+.loc ../contracts/TaskFactory.tsol, 0
+CALLREF {
+	CALL $setOperators_3a5a13a0_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro setOperators_3a5a13a0_internal_macro
+.loc ../node_modules/@broxus/contracts/contracts/access/InternalOwner.tsol, 15
+GETGLOB 9
+GETGLOB 11
+SDEQ
+DUP
+PUSHCONT {
+	DROP
+	GETGLOB 9
+	PARSEMSGADDR
+	INDEX 3
+	PLDU 256
+	NEQINT 0
+}
+IF
+THROWIFNOT 1101
+.loc ../contracts/TaskFactory.tsol, 114
+SETGLOB 15
+.loc ../contracts/TaskFactory.tsol, 0
+
+.globl	setOwnership_a7016023_internal
+.type	setOwnership_a7016023_internal, @function
+CALL $setOwnership_a7016023_internal_macro$
+
+.macro setOwnership_a7016023_internal_macro
+.loc ../node_modules/@broxus/contracts/contracts/access/InternalOwner.tsol, 24
+GETGLOB 11
+.loc ../node_modules/@broxus/contracts/contracts/access/InternalOwner.tsol, 26
+OVER
+SETGLOB 11
+.loc ../node_modules/@broxus/contracts/contracts/access/InternalOwner.tsol, 28
+PUSHSLICE xc0000000000000000000000001
+NEWC
+STSLICE
+ROTREV
+NEWC
+STSLICECONST x6115f072
+STSLICE
+SWAP
+NEWC
+STSLICE
+STBREFR
+STBREFR
+ENDC
+PUSHINT 0
+SENDRAWMSG
+.loc ../node_modules/@broxus/contracts/contracts/access/InternalOwner.tsol, 0
+
+.macro transferOwnership
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../node_modules/@broxus/contracts/contracts/access/InternalOwner.tsol, 34
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+ENDS
+.loc ../node_modules/@broxus/contracts/contracts/access/InternalOwner.tsol, 0
+CALLREF {
+	CALL $transferOwnership_f2fde38b_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro transferOwnership_f2fde38b_internal_macro
+.loc ../node_modules/@broxus/contracts/contracts/access/InternalOwner.tsol, 15
+GETGLOB 9
+GETGLOB 11
+SDEQ
+DUP
+PUSHCONT {
+	DROP
+	GETGLOB 9
+	PARSEMSGADDR
+	INDEX 3
+	PLDU 256
+	NEQINT 0
+}
+IF
+THROWIFNOT 1101
+.loc ../node_modules/@broxus/contracts/contracts/access/InternalOwner.tsol, 37
+DUP
+PUSHREFSLICE {
+	.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+}
+SDEQ
+THROWIF 1102
+.loc ../node_modules/@broxus/contracts/contracts/access/InternalOwner.tsol, 39
+CALLREF {
+	CALL $setOwnership_a7016023_internal_macro$
+}
+.loc ../node_modules/@broxus/contracts/contracts/access/InternalOwner.tsol, 0
+
+.macro renounceOwnership
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../node_modules/@broxus/contracts/contracts/access/InternalOwner.tsol, 45
+ENDS
+.loc ../node_modules/@broxus/contracts/contracts/access/InternalOwner.tsol, 0
+CALLREF {
+	CALL $renounceOwnership_715018a6_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro renounceOwnership_715018a6_internal_macro
+.loc ../node_modules/@broxus/contracts/contracts/access/InternalOwner.tsol, 15
+GETGLOB 9
+GETGLOB 11
+SDEQ
+DUP
+PUSHCONT {
+	DROP
+	GETGLOB 9
+	PARSEMSGADDR
+	INDEX 3
+	PLDU 256
+	NEQINT 0
+}
+IF
+THROWIFNOT 1101
+.loc ../node_modules/@broxus/contracts/contracts/access/InternalOwner.tsol, 46
+PUSHREFSLICE {
+	.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+}
+.loc ../node_modules/@broxus/contracts/contracts/access/InternalOwner.tsol, 48
+CALLREF {
+	CALL $setOwnership_a7016023_internal_macro$
+}
+.loc ../node_modules/@broxus/contracts/contracts/access/InternalOwner.tsol, 0
+
+.macro c4_to_c7
+PUSHROOT
+CTOS
+LDU 256 ; pubkey c4
+LDU 64 ; pubkey timestamp c4
+LDU 1 ; ctor flag
+NIP
+LDU 256
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDU 32
+LDREF
+LDREF
+LDU 32
+LDDICT
+ROTREV
+PAIR
+SWAP
+ENDS
+SETGLOB 15
+SETGLOB 14
+SETGLOB 13
+SETGLOB 12
+SETGLOB 11
+SETGLOB 10
+SETGLOB 3
+SETGLOB 2
+
+.macro c4_to_c7_with_init_storage
+PUSHROOT
+CTOS
+SBITS
+GTINT 1
+PUSHCONT {
+	PUSHINT 0
+	PUSHROOT
+	CTOS
+	PLDDICT ; D
+	PUSHINT 1
+	OVER
+	PUSHINT 64
+	DICTUGET
+	ZEROSWAPIFNOT
+	PUSHCONT {
+		PLDU 256
+	}
+	IF
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	PUSHINT 0
+	PUSHREF {
+	}
+	DUP
+	PUSHINT 0
+	NEWDICT
+	PAIR
+	SETGLOB 15
+	SETGLOB 14
+	SETGLOB 13
+	SETGLOB 12
+	SETGLOB 11
+	SETGLOB 10
+	PUSHINT 64
+	DICTUGET
+	THROWIFNOT 61
+	PLDU 256
+	SETGLOB 2
+	PUSHINT 0 ; timestamp
+	SETGLOB 3
+}
+IFREFELSE {
+	CALL $c4_to_c7$
+}
+
+.macro c7_to_c4
+GETGLOB 15
+GETGLOB 14
+GETGLOB 13
+GETGLOB 12
+GETGLOB 11
+GETGLOB 10
+GETGLOB 3
+GETGLOB 2
+NEWC
+STU 256
+STU 64
+STONE
+STU 256
+ROLLREV 5
+NEWC
+STSLICE
+STU 32
+STREF
+STREF
+SWAP
+UNPAIR
+XCHG S2
+STU 32
+STDICT
+STBREFR
+ENDC
+POPROOT
+
+.macro upd_only_time_in_c4
+PUSHROOT
+CTOS
+LDU 256
+LDU 64
+NIP
+GETGLOB 3
+ROT
+NEWC
+STU 256
+STU 64
+STSLICE
+ENDC
+POPROOT
+
+.internal-alias :main_internal, 0
+.internal :main_internal
+PUSHROOT
+CTOS
+SBITS
+NEQINT 1
+SETGLOB 6
+PUSH S2
+CTOS
+LDU 4 ; bounced tail
+LDMSGADDR ; bounced src tail
+DROP
+SETGLOB 9
+MODPOW2 1
+IFRET
+OVER
+SEMPTY ; isEmpty
+IFJMPREF {
+	GETGLOB 6
+	THROWIFNOT 76
+}
+OVER
+LDUQ 32  ; [funcId] body' ok
+THROWIFNOT 60
+OVER
+IFNOTJMPREF {
+	GETGLOB 6
+	THROWIFNOT 76
+}
+SWAP
+CALLREF {
+	CALL $public_function_selector$
+}
+THROW 60
+
+.internal-alias :main_external, -1
+.internal :main_external
+PUSHROOT
+CTOS
+SBITS
+NEQINT 1
+SETGLOB 6
+PUSHREFSLICE {
+	.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+}
+SETGLOB 9
+OVER
+CALLREF {
+	CALL $c4_to_c7_with_init_storage$
+}
+LDU 1 ; haveSign msgSlice
+SWAP
+PUSHCONT {
+	PUSHPOW2 9
+	LDSLICEX ; signatureSlice msgSlice
+	DUP
+	HASHSU ; signatureSlice msgSlice hashMsgSlice
+	ROT
+	GETGLOB 2
+	CHKSIGNU ; msgSlice isSigned
+	THROWIFNOT 40
+}
+IF
+LDU 64 ; timestamp msgSlice
+SWAP
+CALL $replay_protection_macro$
+LDU 32 ; funcId body
+SWAP
+CALLREF {
+	CALL $public_function_selector$
+}
+THROW 60
+
+.macro _randomNonce
+DROP
+ENDS
+CALLREF {
+	CALL $c4_to_c7$
+}
+GETGLOB 10
+OVER
+PUSHCONT {
+	PUSHSLICE xc0000000000000000000000000bb53331f
+	NEWC
+	STSLICE
+	STU 256
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+IF
+THROW 0
+
+.macro owner
+DROP
+ENDS
+CALLREF {
+	CALL $c4_to_c7$
+}
+GETGLOB 11
+OVER
+PUSHCONT {
+	PUSHSLICE xc0000000000000000000000000df0bcfde
+	NEWC
+	STSLICE
+	STSLICE
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+IF
+THROW 0
+
+.macro operators
+DROP
+ENDS
+CALLREF {
+	CALL $c4_to_c7$
+}
+GETGLOB 15
+OVER
+PUSHCONT {
+	PUSHSLICE xc0000000000000000000000000e4a40939
+	NEWC
+	STSLICE
+	SWAP
+	UNPAIR
+	XCHG S2
+	STU 32
+	STDICT
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+IF
+THROW 0
+
+.macro public_function_selector
+DUP
+PUSHINT 882238549
+LEQ
+IFJMPREF {
+	DUP
+	PUSHINT 231618232
+	EQUAL
+	IFJMPREF {
+		CALL $drain$
+	}
+	DUP
+	PUSHINT 235197086
+	EQUAL
+	IFJMPREF {
+		CALL $transferOwnership$
+	}
+	DUP
+	PUSHINT 560497317
+	EQUAL
+	IFJMPREF {
+		CALL $deployTask$
+	}
+	DUP
+	PUSHINT 882238549
+	EQUAL
+	IFJMPREF {
+		CALL $constructor$
+	}
+}
+DUP
+PUSHINT 1549827148
+LEQ
+IFJMPREF {
+	DUP
+	PUSHINT 929625812
+	EQUAL
+	IFJMPREF {
+		CALL $deriveTaskIndex$
+	}
+	DUP
+	PUSHINT 995308319
+	EQUAL
+	IFJMPREF {
+		CALL $_randomNonce$
+	}
+	DUP
+	PUSHINT 1492965299
+	EQUAL
+	IFJMPREF {
+		CALL $setOperators$
+	}
+	DUP
+	PUSHINT 1549827148
+	EQUAL
+	IFJMPREF {
+		CALL $deriveTask$
+	}
+}
+DUP
+PUSHINT 1729444094
+LEQ
+IFJMPREF {
+	DUP
+	PUSHINT 1594609630
+	EQUAL
+	IFJMPREF {
+		CALL $owner$
+	}
+	DUP
+	PUSHINT 1688471865
+	EQUAL
+	IFJMPREF {
+		CALL $operators$
+	}
+	DUP
+	PUSHINT 1729444094
+	EQUAL
+	IFJMPREF {
+		CALL $renounceOwnership$
+	}
+}
+

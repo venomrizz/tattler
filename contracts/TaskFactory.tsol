@@ -1,0 +1,116 @@
+// SPDX-License-Identifier: UNLICENSED
+pragma ever-solidity >= 0.62.0;
+
+import "./interfaces/ITaskFactory.tsol";
+import "./Task.tsol";
+import "./TaskIndex.tsol";
+
+import "@broxus/contracts/contracts/libraries/MsgFlag.tsol";
+import "@broxus/contracts/contracts/utils/RandomNonce.tsol";
+import "@broxus/contracts/contracts/access/InternalOwner.tsol";
+
+
+contract TaskFactory is ITaskFactory, RandomNonce, InternalOwner {
+    uint32 task_counter;
+    TvmCell task_code;
+    TvmCell task_index_code;
+    uint[] public operators;
+
+    constructor(
+        address _owner,
+        TvmCell _task_code,
+        TvmCell _task_index_code,
+        uint[] _operators
+    ) public {
+        tvm.accept();
+
+        setOwnership(_owner);
+
+        task_code = _task_code;
+        task_index_code = _task_index_code;
+        operators = _operators;
+    }
+
+    function deployTask(address owner) external override {
+        uint32 task_id = task_counter;
+        task_counter++;
+
+        address task = _derive_task(task_id);
+        address index = _derive_task_index(owner);
+
+        emit TaskDeployed(task_id, owner, index, task);
+
+        _deploy_task_index(task_id, owner);
+        _deploy_task(task_id, owner);
+    }
+
+    function _deploy_task(uint32 task_id, address owner) internal view {
+        new Task{
+            value: 0,
+            flag: MsgFlag.ALL_NOT_RESERVED,
+            code: task_code,
+            pubkey: 0,
+            varInit: {
+                fabric: address(this),
+                id: task_id
+            }
+        }(owner, operators);
+    }
+
+    function _deploy_task_index(uint32 task_id, address _owner) internal view {
+        new TaskIndex{
+            value: Constants.DEPLOY_TASK_INDEX_VALUE,
+            flag: 0,
+            code: task_index_code,
+            pubkey: 0,
+            varInit: {
+                fabric: address(this),
+                owner: _owner
+            }
+        }(task_id);
+    }
+
+    function _derive_task(uint32 task_id) internal view returns(address) {
+        TvmCell stateInit = tvm.buildStateInit({
+            contr: Task,
+            varInit : {
+                fabric: address(this),
+                id: task_id
+            },
+            pubkey : 0,
+            code: task_code
+        });
+
+        return address(tvm.hash(stateInit));
+    }
+
+    function _derive_task_index(address _owner) internal view returns(address) {
+        TvmCell stateInit = tvm.buildStateInit({
+            contr: TaskIndex,
+            varInit : {
+                fabric: address(this),
+                owner: _owner
+            },
+            pubkey : 0,
+            code: task_index_code
+        });
+
+        return address(tvm.hash(stateInit));
+    }
+
+    function deriveTask(uint32 task_id) external override returns(address task) {
+        return _derive_task(task_id);
+    }
+
+    function deriveTaskIndex(address _owner) external override returns(address task_index) {
+        return _derive_task_index(_owner);
+    }
+
+    function drain() external override onlyOwner {
+
+    }
+
+    function setOperators(uint[] _operators) external override onlyOwner {
+        operators = _operators;
+    }
+}
