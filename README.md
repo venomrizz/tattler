@@ -22,6 +22,24 @@ These services allow developers to expect regular calls execution in smart contr
 - Venom devnet (https://devnet.venomscan.com/)
   - Task factory: 0:57e752e2765f0827bd424096d6bcc353116d0bfa69acddf3ddd9e843f7adc248
 
+## Create task
+
+To create task use [https://tools.venom.rs](https://tools.venom.rs).
+
+### 1. Use Task Factory to create Task
+
+![1_](./assets/img/1_create_task.png)
+
+Remember the `task` field from the `TaskDeployed` event. It's your personal Task contract.
+
+### 2. Add job to the task
+
+![2_](./assets/img/3_add_job.png)
+
+### 3. Check the jobs
+
+![3](./assets/img/2_get_jobs.png)
+
 ## Architecture
 
 Architecture is highly scalable and designed specifically for VENOM network architecture (eg scaling, storage fees).
